@@ -1,6 +1,8 @@
 import os
 import sys
 
+import gradio as gr
+
 import openai
 from langchain.chains import ConversationalRetrievalChain, RetrievalQA
 from langchain.chat_models import ChatOpenAI
@@ -42,13 +44,27 @@ chain = ConversationalRetrievalChain.from_llm(
 )
 
 chat_history = []
-while True:
-  if not query:
-    query = input("Prompt: ")
-  if query in ['quit', 'q', 'exit']:
-    sys.exit()
-  result = chain({"question": query, "chat_history": chat_history})
-  print(result['answer'])
+# while True:
+#   if not query:
+#     query = input("Prompt: ")
+#   if query in ['quit', 'q', 'exit']:
+#     sys.exit()
+#   result = chain({"question": query, "chat_history": chat_history})
+#   print(result['answer'])
+#
+#   chat_history.append((query, result['answer']))
+#   query = None
 
+
+def chat(query):
+  global chat_history
+  if query in ['quit', 'q', 'exit']:
+    return "Exiting..."
+
+  result = chain({"question": query, "chat_history": chat_history})
   chat_history.append((query, result['answer']))
-  query = None
+
+  return result['answer']
+
+iface = gr.Interface(fn=chat, inputs="textbox", outputs="text")
+iface.launch()
