@@ -7,3 +7,4 @@ persist/
 .DS_Store
 /.chroma/
 /token.json
+/config.json

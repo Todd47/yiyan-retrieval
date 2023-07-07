@@ -38,7 +38,7 @@ class YiyanLLM(LLM):
             json.dump(data, file, indent=4)
 
         data_yiyan = {
-            "messages": [{"role":"user","content":prompt}],
+            "messages": [{"role": "user", "content": prompt}],
             "temperature": self.temperature
         }
 
@@ -56,10 +56,6 @@ class YiyanLLM(LLM):
 
         return response_dict["result"]
 
-
-
-
-
         # if response.status_code != 200:
         #     return "查询结果错误"
         # resp = response.json()
@@ -69,33 +65,6 @@ class YiyanLLM(LLM):
         #
         #
         # return resp['response']
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def get_access_token(self):
         file_path = "token.json"
